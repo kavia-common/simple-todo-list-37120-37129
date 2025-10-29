@@ -1,104 +1,177 @@
-/* CSS Variables for Theme Management */
+/* Retro Theme aligned with style guide
+   primary: #3b82f6, secondary: #64748b, success: #06b6d4, error: #EF4444
+   background: #f9fafb, surface: #ffffff, text: #111827
+*/
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #3b82f6;
+  --secondary: #64748b;
+  --success: #06b6d4;
+  --error: #EF4444;
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+
+  --scanline: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+  --shadow: 0 2px 0 #11182722, 0 4px 0 #11182711;
+  --radius: 8px;
+
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --pixel: "Press Start 2P", var(--mono);
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
 }
 
-.App {
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+}
+
+/* App background with subtle scanlines */
+.retro-bg {
+  min-height: 100vh;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px),
+    var(--bg);
+}
+
+/* Header */
+.retro-header {
   text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 32px 16px 8px;
+}
+.retro-title {
+  font-family: var(--pixel);
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--primary);
+  text-shadow: 0 1px 0 #fff;
+  margin: 0 0 6px 0;
+}
+.retro-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--secondary);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Layout container */
+.container {
+  max-width: 720px;
+  margin: 16px auto 48px;
+  padding: 0 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Input row */
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+.retro-input {
+  background: var(--surface);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-family: var(--mono);
   font-size: 14px;
-  font-weight: 600;
+  outline: none;
+  box-shadow: var(--shadow);
+}
+.retro-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px #3b82f644, var(--shadow);
+}
+
+/* Buttons */
+.retro-btn {
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+}
+.retro-btn:hover { filter: brightness(0.96); }
+.retro-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.retro-btn.danger { background: var(--error); }
+.retro-btn.success { background: var(--success); }
+
+/* Alerts */
+.retro-alert {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #fecaca;
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin: 8px 0 16px;
+  font-size: 12px;
+  box-shadow: var(--shadow);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* Cards and list */
+.retro-card {
+  background: var(--surface);
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+.retro-card.muted {
+  color: var(--secondary);
+  text-align: center;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.task-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+.task-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-bullet {
+  color: var(--success);
+}
+
+.task-title {
+  font-size: 14px;
+  word-break: break-word;
+}
+
+/* Footer */
+.retro-footer {
+  text-align: center;
+  padding: 24px 0 40px;
+  color: var(--secondary);
+  font-size: 12px;
+}
+
+/* small screens */
+@media (max-width: 480px) {
+  .retro-title { font-size: 14px; }
+  .retro-btn { padding: 12px 12px; }
 }
